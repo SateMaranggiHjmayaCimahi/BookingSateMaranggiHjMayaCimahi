@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Sate Maranggi & Sop Hj. Maya Cimahi</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            background-color: #fdfaf6;
+            font-family: 'Poppins', sans-serif;
+            color: #4A4A4A;
+        }
+        .container {
+            max-width: 800px;
+        }
+        .card {
+            border: none;
+            border-radius: 1.25rem;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+        .card-header {
+            background: linear-gradient(135deg, #8B4513, #D2691E);
+            color: white;
+            padding: 2rem;
+            border-bottom: 5px solid #A0522D;
+        }
+        .card-header h3 {
+            font-weight: 700;
+        }
+        .card-header h4 {
+            font-weight: 400;
+            opacity: 0.9;
+        }
+        .card-body {
+            padding: 2rem;
+        }
+        .btn-brand {
+            background-color: #D2691E;
+            color: white;
+            font-weight: 600;
+            padding: 0.85rem;
+            border-radius: 0.75rem;
+            transition: all 0.3s ease;
+            border: none;
+        }
+        .btn-brand:hover {
+            background-color: #A0522D;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(210, 105, 30, 0.4);
+        }
+        .form-control, .form-select, .input-group-text {
+            border-radius: 0.75rem !important;
+            padding: 0.85rem;
+        }
+        .input-group-text {
+            background-color: #f8f3ed;
+            border: 1px solid #eaddd3;
+            color: #A0522D;
+            width: 55px; /* Set a fixed width for the icon container */
+            justify-content: center; /* Center the icon inside */
+        }
+        .form-control, .form-select {
+             border: 1px solid #eaddd3;
+        }
+        .form-control:focus, .form-select:focus {
+            border-color: #D2691E;
+            box-shadow: 0 0 0 0.25rem rgba(210, 105, 30, 0.2);
+        }
+        
+        /* --- Modal Styling --- */
+        .modal-content {
+            border-radius: 1rem;
+            border: none;
+            background-color: #fffefb; /* Slightly off-white for warmth */
+        }
+        .modal-header {
+            background-color: #fdfaf6;
+            border-bottom: 1px solid #f0e6dc;
+            padding: 1.5rem;
+        }
+        .modal-title {
+            font-weight: 600;
+            color: #8B4513;
+        }
+        .modal-footer {
+            background-color: #fdfaf6;
+            border-top: 1px solid #f0e6dc;
+            padding: 1rem 1.5rem;
+        }
+
+        /* --- Participant List Styling --- */
+        #participantList {
+            padding: 0.5rem;
+        }
+        .participant-item {
+            display: flex;
+            gap: 0.75rem;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .participant-item .input-group-text {
+            border-radius: 0.75rem 0 0 0.75rem !important;
+        }
+        .participant-item .form-control {
+             border-radius: 0 0.75rem 0.75rem 0 !important;
+        }
+
+        /* --- Menu List Styling --- */
+        .menu-category {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-top: 1.5rem;
+            color: #8B4513;
+            border-bottom: 2px solid #f0e6dc;
+            padding-bottom: 0.5rem;
+        }
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.85rem 0.25rem;
+            border-bottom: 1px solid #f8f3ed;
+        }
+        .menu-item:last-child {
+            border-bottom: none;
+        }
+        .menu-item .price {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container my-5 px-3">
+        <div class="card">
+            <div class="card-header text-center">
+                <h3 class="mb-1">Formulir Booking Rombongan</h3>
+                <h4 class="fw-normal h5">Sate Maranggi & Sop Hj. Maya Cimahi</h4>
+            </div>
+            <div class="card-body p-4 p-md-5">
+                <form id="bookingForm">
+                    <div class="mb-4">
+                        <label for="nama" class="form-label fw-medium">Nama Pemesan</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
+                            <input type="text" class="form-control" id="nama" placeholder="Masukan nama lengkap Anda" required>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="telepon" class="form-label fw-medium">No. Telepon (WhatsApp Aktif)</label>
+                        <div class="input-group">
+                             <span class="input-group-text"><i class="bi bi-whatsapp"></i></span>
+                             <input type="tel" class="form-control" id="telepon" placeholder="Contoh: 081234567890" required>
+                        </div>
+                    </div>
+                     <div class="mb-4">
+                        <label for="alamat" class="form-label fw-medium">Alamat</label>
+                         <div class="input-group">
+                             <span class="input-group-text"><i class="bi bi-geo-alt-fill"></i></span>
+                             <textarea class="form-control" id="alamat" rows="2" placeholder="Masukan alamat lengkap Anda" required></textarea>
+                        </div>
+                    </div>
+                     <div class="mb-4">
+                        <label for="area" class="form-label fw-medium">Pilih Area Booking</label>
+                         <div class="input-group">
+                             <span class="input-group-text"><i class="bi bi-shop"></i></span>
+                             <select class="form-select" id="area" required>
+                                <option value="" selected disabled>-- Pilih Area --</option>
+                                <option value="Area Hanggar A">Area Hanggar A</option>
+                                <option value="Area Hanggar B">Area Hanggar B</option>
+                                <option value="Area Gazebo">Area Gazebo</option>
+                             </select>
+                        </div>
+                    </div>
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <label for="jumlahOrang" class="form-label fw-medium">Jumlah Pengunjung</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-people-fill"></i></span>
+                                <input type="number" class="form-control" id="jumlahOrang" min="25" required>
+                            </div>
+                            <div class="form-text mt-1">Minimal 25 orang.</div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="tanggalBooking" class="form-label fw-medium">Tanggal</label>
+                             <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-calendar-event-fill"></i></span>
+                                <input type="date" class="form-control" id="tanggalBooking" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="waktuBooking" class="form-label fw-medium">Waktu</label>
+                             <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-clock-fill"></i></span>
+                                <input type="time" class="form-control" id="waktuBooking" min="09:00" max="20:00" required>
+                            </div>
+                             <div class="form-text mt-1">Jam 09:00 - 20:00.</div>
+                        </div>
+                    </div>
+                    <div class="d-grid mt-4 pt-2">
+                        <button type="submit" class="btn btn-brand btn-lg">Lanjutkan & Pilih Menu <i class="bi bi-arrow-right-circle-fill ms-2"></i></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Daftar Peserta -->
+    <div class="modal fade" id="pesertaModal" tabindex="-1" aria-labelledby="pesertaModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="pesertaModalLabel">Daftar Peserta & Pilihan Menu</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="px-2">Silakan isi nama peserta dan klik "Pilih Menu" untuk setiap peserta.</p>
+                    <div id="participantList">
+                        <!-- Daftar peserta akan digenerate oleh JavaScript -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="row g-2 w-100">
+                        <div class="col-sm-6 d-grid mb-2 mb-sm-0">
+                            <button type="button" class="btn btn-secondary" id="skipMenuBtn">Lanjutkan Tanpa Memilih Menu</button>
+                        </div>
+                        <div class="col-sm-6 d-grid">
+                             <button type="button" class="btn btn-brand" id="sendToWhatsappBtn">Kirim Booking via WhatsApp</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Pilihan Menu -->
+    <div class="modal fade" id="menuModal" tabindex="-1" aria-labelledby="menuModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="menuModalLabel">Pilih Menu untuk Peserta</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form id="menuForm">
+                        <div id="menuContainer">
+                            <!-- Daftar menu akan digenerate oleh JavaScript -->
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-brand" id="saveMenuBtn">Simpan Pesanan Peserta</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // --- KONFIGURASI PENTING ---
+        // Nomor WhatsApp Admin Hj. Maya
+        // Format 62 (menggantikan angka 0 di depan)
+        const nomorWhatsappTujuan = '6282211928654'; 
+
+        // --- DATA MENU ---
+        const menuData = {
+            "Aneka Sate": [
+                { name: "Sate Maranggi Sapi", price: "Rp. 5.000 / PCS" },
+                { name: "Sate Maranggi Kambing", price: "Rp. 6.500 / PCS" },
+                { name: "Sate Maranggi Ayam", price: "Rp. 5.000 / PCS" },
+                { name: "Nasi Timbel", price: "Rp. 7.000" }
+            ],
+            "Aneka Sop & Gulai": [
+                { name: "Sop Iga Sapi", price: "Rp. 40.000" },
+                { name: "Sop Iga Kambing", price: "Rp. 40.000" },
+                { name: "Gulai Sapi", price: "Rp. 42.000" },
+                { name: "Gulai Kambing", price: "Rp. 42.000" },
+                { name: "Soto Ayam", price: "Rp. 30.000" },
+                { name: "Sop Dengkul", price: "Rp. 42.000" },
+                { name: "Sop Buntut", price: "Rp. 42.000" },
+                { name: "Tongseng", price: "Rp. 42.000" }
+            ],
+            "Aneka Minuman": [
+                { name: "Es Kelapa", price: "Rp. 20.000" }, { name: "Es Kelapa Jeruk", price: "Rp. 22.000" },
+                { name: "Es Kelapa Alpukat", price: "Rp. 25.000" }, { name: "Es Kelapa Gula Aren", price: "Rp. 22.000" },
+                { name: "Jeruk Panas", price: "Rp. 18.000" }, { name: "Es Jeruk", price: "Rp. 18.000" },
+                { name: "Teh Manis Panas", price: "Rp. 10.000" }, { name: "Es Teh Manis", price: "Rp. 10.000" },
+                { name: "Jus Alpukat", price: "Rp. 18.000" }, { name: "Jus Mangga", price: "Rp. 18.000" },
+                { name: "Jus Strawberry", price: "Rp. 18.000" }, { name: "Jus Sirsak", price: "Rp. 18.000" },
+                { name: "Jus Melon", price: "Rp. 18.000" }, { name: "Jus Tomat", price: "Rp. 18.000" },
+                { name: "Jus Jambu", price: "Rp. 18.000" }, { name: "Jus Buah Naga", price: "Rp. 18.000" },
+                { name: "Kopi", price: "Rp. 5.000" }
+            ],
+            "Lain-lain": [
+                { name: "Karedok", price: "Rp. 18.000" }, { name: "Lotek", price: "Rp. 18.000" },
+                { name: "Gorengan", price: "Rp. 18.000" }, { name: "Kerupuk", price: "Rp. 6.000" },
+                { name: "Terong Crispy", price: "Rp. 15.000" }, { name: "Gepuk", price: "Rp. 35.000" },
+                { name: "Ati Ampela", price: "Rp. 19.000" }, { name: "Babat", price: "Rp. 27.000" },
+                { name: "Tamusu", price: "Rp. 28.000" }, { name: "Ayam Pejantan Goreng", price: "Rp. 30.000" },
+                { name: "Ayam Pejantan Bakar", price: "Rp. 30.000" }, { name: "Sayur Asam", price: "Rp. 15.000" }
+            ],
+            "Aneka Ikan Tawar Goreng / Bakar": [
+                { name: "Nila Bakar (Cobek Jahe, Saus Padang, Asam Manis)", price: "Rp. 46.000 - Rp. 57.000" },
+                { name: "Nila Bakar (Bakar Madu, Pedas Gurih, Kecap Jahe)", price: "Rp. 46.000 - Rp. 57.000" },
+                { name: "Gurame Goreng (Cobek Jahe, Saus Padang, Asam Manis)", price: "Rp. 72.000 - Rp. 131.000" },
+                { name: "Gurame Bakar (Bakar Madu, Pedas Gurih, Kecap Jahe)", price: "Rp. 72.000 - Rp. 131.000" },
+                { name: "Lele Goreng", price: "Rp. 25.000" }, { name: "Tumis Peda Beureum", price: "Rp. 20.000" }
+            ],
+            "Aneka Tumis": [
+                { name: "Tumis Kangkung", price: "Rp. 18.000" }, { name: "Tumis Genjer", price: "Rp. 18.000" },
+                { name: "Cobek Kangkung", price: "Rp. 20.000" }, { name: "Cobek Genjer", price: "Rp. 20.000" }
+            ],
+            "Aneka Sambal": [
+                { name: "Sambal Dadak", price: "Rp. 8.000" }, { name: "Sambal Jeletot", price: "Rp. 8.000" },
+                { name: "Sambal Terasi", price: "Rp. 8.000" }
+            ],
+            "Aneka Seafood": [
+                { name: "Cumi Goreng Tepung", price: "Rp. 36.000" },
+                { name: "Cumi Goreng (Asam Manis & Saus Padang)", price: "Rp. 38.000" },
+                { name: "Udang Goreng Tepung", price: "Rp. 38.000" }
+            ],
+            "Aneka Cah": [
+                { name: "Cah Kangkung Bawang Putih", price: "Rp. 22.000" }, { name: "Cah Kangkung Ayam", price: "Rp. 23.000" },
+                { name: "Cah Kangkung Seafood", price: "Rp. 26.000" }, { name: "Cah Toge Bawang Putih", price: "Rp. 18.000" },
+                { name: "Cah Toge Tahu", price: "Rp. 19.000" }, { name: "Cah Toge Teri", price: "Rp. 20.000" }
+            ],
+            "Pendamping": [
+                { name: "Pencok Leunca", price: "Rp. 18.000" }, { name: "Pencok Kacang Panjang", price: "Rp. 18.000" },
+                { name: "Seladah Goreng", price: "Rp. 17.000" }, { name: "Kol Goreng", price: "Rp. 17.000" },
+                { name: "Terong Krispy Cabe Garam", price: "Rp. 20.000" }, { name: "Tahu Cabe Garam", price: "Rp. 20.000" },
+                { name: "Tempe Bacem (isi 3)", price: "Rp. 15.000" }, { name: "Perkedel Kentang (isi 3)", price: "Rp. 15.000" },
+                { name: "Lalapan Segar + Sambal", price: "Rp. 17.000" }
+            ]
+        };
+
+        let pesertaModal, menuModal;
+        let participantOrders = {};
+        let currentParticipantIndex = null;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            pesertaModal = new bootstrap.Modal(document.getElementById('pesertaModal'));
+            menuModal = new bootstrap.Modal(document.getElementById('menuModal'));
+
+            // Set tanggal minimal hari ini
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('tanggalBooking').setAttribute('min', today);
+
+            // Handler untuk form utama
+            document.getElementById('bookingForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const jumlahOrang = document.getElementById('jumlahOrang').value;
+                if (jumlahOrang < 25) {
+                    alert('Maaf, booking minimal untuk 25 orang.');
+                    return;
+                }
+                generateParticipantList(jumlahOrang);
+                pesertaModal.show();
+            });
+
+            // Handler untuk tombol pilih menu di daftar peserta
+            document.getElementById('participantList').addEventListener('click', function(e) {
+                const button = e.target.closest('.pilih-menu-btn');
+                if (button) {
+                    currentParticipantIndex = button.dataset.participantIndex;
+                    const participantName = document.getElementById(`participant-input-${currentParticipantIndex}`).value;
+                    document.getElementById('menuModalLabel').innerText = `Pilih Menu untuk ${participantName}`;
+                    populateMenuModal();
+                    menuModal.show();
+                }
+            });
+            
+            // Handler untuk menyimpan pesanan dari modal menu
+            document.getElementById('saveMenuBtn').addEventListener('click', saveParticipantMenu);
+            
+            // Handler untuk tombol kirim ke WA
+            document.getElementById('sendToWhatsappBtn').addEventListener('click', () => generateAndSendWhatsAppMessage(true));
+            document.getElementById('skipMenuBtn').addEventListener('click', () => generateAndSendWhatsAppMessage(false));
+
+        });
+
+        function generateParticipantList(count) {
+            const listContainer = document.getElementById('participantList');
+            listContainer.innerHTML = '';
+            participantOrders = {};
+            for (let i = 1; i <= count; i++) {
+                const defaultName = `Peserta ${i}`;
+                listContainer.innerHTML += `
+                    <div class="participant-item">
+                        <div class="input-group flex-grow-1">
+                            <span class="input-group-text"><i class="bi bi-person"></i></span>
+                            <input type="text" class="form-control participant-name-input" id="participant-input-${i}" value="${defaultName}" placeholder="Nama Peserta ${i}">
+                        </div>
+                        <button class="btn btn-sm btn-outline-primary pilih-menu-btn flex-shrink-0 ms-2" data-participant-index="${i}">Pilih Menu</button>
+                    </div>
+                `;
+            }
+        }
+
+        function populateMenuModal() {
+            const menuContainer = document.getElementById('menuContainer');
+            menuContainer.innerHTML = '';
+
+            for (const category in menuData) {
+                let categoryHtml = `<h5 class="menu-category">${category}</h5>`;
+                menuData[category].forEach(item => {
+                    const itemNameSlug = item.name.replace(/[^a-zA-Z0-9]/g, '');
+                    const existingOrder = participantOrders[currentParticipantIndex]?.find(order => order.name === item.name);
+                    const qty = existingOrder ? existingOrder.qty : 0;
+
+                    categoryHtml += `
+                        <div class="mb-2 menu-item">
+                            <div>
+                                <label for="${itemNameSlug}" class="form-label mb-0">${item.name}</label>
+                                <div class="price">${item.price}</div>
+                            </div>
+                            <input type="number" id="${itemNameSlug}" class="form-control" style="width: 80px;" min="0" value="${qty}" 
+                                   data-name="${item.name}" data-price="${item.price}">
+                        </div>
+                    `;
+                });
+                menuContainer.innerHTML += categoryHtml;
+            }
+        }
+
+        function saveParticipantMenu() {
+            const inputs = document.getElementById('menuForm').querySelectorAll('input[type="number"]');
+            const orders = [];
+            inputs.forEach(input => {
+                const qty = parseInt(input.value, 10);
+                if (qty > 0) {
+                    orders.push({
+                        name: input.dataset.name,
+                        qty: qty
+                    });
+                }
+            });
+            
+            const button = document.querySelector(`.pilih-menu-btn[data-participant-index="${currentParticipantIndex}"]`);
+            if (orders.length > 0) {
+                participantOrders[currentParticipantIndex] = orders;
+                button.classList.remove('btn-outline-primary');
+                button.classList.add('btn-success');
+                button.innerHTML = '<i class="bi bi-check-circle-fill me-1"></i> Menu Dipilih';
+            } else {
+                delete participantOrders[currentParticipantIndex];
+                button.classList.add('btn-outline-primary');
+                button.classList.remove('btn-success');
+                button.innerText = 'Pilih Menu';
+            }
+
+            menuModal.hide();
+        }
+        
+        function generateAndSendWhatsAppMessage(includeMenu) {
+            const nama = document.getElementById('nama').value;
+            const alamat = document.getElementById('alamat').value;
+            const telepon = document.getElementById('telepon').value;
+            const area = document.getElementById('area').value;
+            const jumlahOrang = document.getElementById('jumlahOrang').value;
+            const tanggalBooking = document.getElementById('tanggalBooking').value;
+            const waktuBooking = document.getElementById('waktuBooking').value;
+
+            let message = `*[BOOKING ROMBONGAN - Sate Maranggi & Sop Hj. Maya]*\n\n`;
+            message += `Halo, saya ingin melakukan booking untuk rombongan dengan detail sebagai berikut:\n\n`;
+            message += `*Nama Pemesan:* ${nama}\n`;
+            message += `*No. Telepon:* ${telepon}\n`;
+            message += `*Alamat:* ${alamat}\n`;
+            message += `*Area Booking:* ${area}\n`;
+            message += `*Jumlah Pengunjung:* ${jumlahOrang} orang\n`;
+            message += `*Tanggal:* ${new Date(tanggalBooking).toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}\n`;
+            message += `*Waktu:* ${waktuBooking} WIB\n\n`;
+            message += `---------------------------------------\n\n`;
+
+            if (includeMenu && Object.keys(participantOrders).length > 0) {
+                message += `*RINCIAN PESANAN MENU:*\n\n`;
+                for (const participantIndex in participantOrders) {
+                    const participantNameInput = document.getElementById(`participant-input-${participantIndex}`);
+                    const participantName = participantNameInput ? participantNameInput.value : `Peserta ${participantIndex}`;
+                    message += `*${participantName}:*\n`;
+                    participantOrders[participantIndex].forEach(order => {
+                        message += `- ${order.name} (x${order.qty})\n`;
+                    });
+                    message += `\n`;
+                }
+            } else {
+                message += `Rincian pesanan menu akan menyusul di tempat atau akan diinformasikan lebih lanjut.\n\n`;
+            }
+
+            message += `Mohon konfirmasi ketersediaan tempat. Terima kasih.`;
+            
+            const whatsappUrl = `https://api.whatsapp.com/send?phone=${nomorWhatsappTujuan}&text=${encodeURIComponent(message)}`;
+            
+            window.open(whatsappUrl, '_blank');
+        }
+
+    </script>
+
+</body>
+</html>
